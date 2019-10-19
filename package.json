@@ -52,6 +52,11 @@
     "webpack": "4.41.2",
     "webpack-merge": "4.2.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

@@ -1,0 +1,3 @@
+{
+  "**/*.js?(x)": ["prettier --write", "yarn run lint --fix", "git add"]
+}
