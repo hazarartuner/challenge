@@ -3,7 +3,7 @@
 exports[`Components -> App Should match with the snapshot 1`] = `
 <_default>
   <div
-    className="app-component"
+    className="app__component"
   >
     App Component
   </div>

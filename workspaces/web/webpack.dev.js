@@ -1,12 +1,12 @@
-const merge = require("webpack-merge");
-const webpack = require("webpack");
-const common = require("./webpack.common");
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: 'development',
+  devtool: 'inline-source-map',
   devServer: {
-    contentBase: "./dist",
+    contentBase: './dist',
     historyApiFallback: true,
     compress: true,
     port: 3000,
@@ -24,8 +24,8 @@ module.exports = merge(common, {
       errors: true,
       errorDetails: false,
       warnings: false,
-      publicPath: false
-    }
+      publicPath: false,
+    },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 });

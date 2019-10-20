@@ -4,20 +4,19 @@
   "main": "index.js",
   "author": "Mehmet Hazar Artuner <hazar.artuner@gmail.com>",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "workspaces/*"
+  ],
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --open --hotOnly --config webpack.dev.js",
+    "start:web": "cd workspaces/web/ && yarn start",
+    "build:web": "cd workspaces/web/ && yarn run build",
     "test": "jest --watch",
-    "build": "NODE_ENV=production webpack --config webpack.prod.js",
-    "lint": "eslint ./src -c .eslintrc.js --ext js,jsx",
-    "lint:scss": "stylelint ./src/**/*.scss",
-    "prettier": "prettier --write \"src/**/*.{js,json,scss,md}\""
+    "lint": "eslint workspaces -c .eslintrc.js --ext js,jsx",
+    "lint:scss": "stylelint workspaces/web/src/**/*.scss",
+    "prettier": "prettier --write \"workspaces/**/*.{js,json,scss,md}\""
   },
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "babel-loader": "8.0.6",
-    "babel-preset-react-app": "9.0.2",
-    "clean-webpack-plugin": "3.0.0",
-    "css-loader": "3.2.0",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.4.0",
@@ -27,35 +26,17 @@
     "eslint-plugin-prettier": "3.1.1",
     "eslint-plugin-react": "7.16.0",
     "eslint-plugin-react-hooks": "1.7.0",
-    "file-loader": "4.2.0",
-    "html-webpack-plugin": "3.2.0",
     "husky": "3.0.9",
     "jest": "24.9.0",
     "jest-transform-stub": "2.0.0",
     "lint-staged": "10.0.0-0",
-    "node-sass": "4.12.0",
     "prettier": "1.18.2",
-    "sass-loader": "8.0.0",
-    "style-loader": "1.0.0",
     "stylelint": "11.1.1",
     "stylelint-config-recommended-scss": "4.0.0",
     "stylelint-scss": "3.11.1",
+    "webpack": "4.41.2",
     "webpack-cli": "3.3.9",
     "webpack-dev-server": "3.8.2"
-  },
-  "dependencies": {
-    "babel-eslint": "10.0.3",
-    "classnames": "2.2.6",
-    "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "1.15.1",
-    "enzyme-to-json": "3.4.3",
-    "prop-types": "15.7.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
-    "react-router": "5.1.2",
-    "react-router-dom": "5.1.2",
-    "webpack": "4.41.2",
-    "webpack-merge": "4.2.2"
   },
   "husky": {
     "hooks": {
@@ -69,10 +50,11 @@
   },
   "jest": {
     "modulePaths": [
-      "src"
+      "packages/web/src",
+      "packages/api"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
+      "<rootDir>/workspaces/web/setupTests.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

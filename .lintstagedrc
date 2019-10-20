@@ -1,4 +1,4 @@
 {
-  "**/*.js": ["prettier --write \"src/**/*.js\"", "yarn run lint --fix", "git add"],
-  "**/*.scss": ["prettier --write \"src/**/*.scss\"", "yarn run lint:scss --fix", "git add"]
+  "**/*.js": ["prettier --write", "yarn run lint --fix", "git add"],
+  "**/*.scss": ["prettier --write", "yarn run lint:scss --fix", "git add"]
 }

@@ -1,24 +1,24 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  extends: ["airbnb", "prettier", "prettier/react"],
-  plugins: ["react", "prettier", "react-hooks"],
-  parser: "babel-eslint",
+  extends: ['airbnb', 'prettier', 'prettier/react'],
+  plugins: ['react', 'prettier', 'react-hooks'],
+  parser: 'babel-eslint',
   rules: {
-    "react/jsx-filename-extension": [
+    'react/jsx-filename-extension': [
       1,
       {
-        extensions: [".js", "jsx"]
-      }
+        extensions: ['.js', 'jsx'],
+      },
     ],
-    "prettier/prettier": "error",
-    "max-len": ["error", 100],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "consistent-return": "off"
+    'prettier/prettier': 'error',
+    'max-len': ['error', 100],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'consistent-return': 'off',
   },
   env: {
-    browser: true
+    browser: true,
   },
   globals: {
     window: true,
@@ -36,7 +36,8 @@ module.exports = {
     'import/resolver': {
       node: {
         paths: [
-          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'workspaces', 'web', 'src'),
+          path.resolve(__dirname, 'workspaces', 'api', 'src'),
         ],
       },
     },

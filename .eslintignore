@@ -1,6 +1,6 @@
 node_modules
-build
-webpack.*.js
+dist
+.eslintrc.js
 __snapshots__/*
 *.json
 yarn.lock
