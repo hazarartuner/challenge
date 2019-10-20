@@ -1,3 +1,7 @@
+const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
+
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const common = require('./webpack.common');
@@ -9,7 +13,7 @@ module.exports = merge(common, {
     contentBase: './dist',
     historyApiFallback: true,
     compress: true,
-    port: 3000,
+    port: process.env.WEB_PORT || 3000,
     stats: {
       colors: true,
       hash: false,

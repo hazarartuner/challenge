@@ -11,6 +11,8 @@
   "scripts": {
     "start:web": "cd workspaces/web/ && yarn start",
     "build:web": "cd workspaces/web/ && yarn run build",
+    "start:api": "cd workspaces/api/ && yarn start",
+    "serve:api": "cd workspaces/api/ && yarn serve",
     "test": "jest --watch",
     "lint": "eslint workspaces -c .eslintrc.js --ext js,jsx",
     "lint:scss": "stylelint workspaces/web/src/**/*.scss",
