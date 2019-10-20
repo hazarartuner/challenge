@@ -18,6 +18,13 @@ const handleInternalServerError = (req, res, details) => {
   });
 };
 
+const handleForbidden = (req, res) => {
+  res.status(403).json({
+    status: 403,
+    message: "Forbidden, you don't have permission to access this content",
+  });
+};
+
 const handleSuccess = (req, res, payload) => {
   res.status(200).json({
     status: 200,
@@ -28,6 +35,7 @@ const handleSuccess = (req, res, payload) => {
 module.exports = (req, res, next) => {
   res.responseHandlers = {
     success: payload => handleSuccess(req, res, payload),
+    forbidden: () => handleForbidden(req, res),
     badRequest: details => handleBadRequest(req, res, details),
     internalServerError: details => handleInternalServerError(req, res, details),
   };
