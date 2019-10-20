@@ -5,9 +5,18 @@ class User extends Model {}
 
 User.init(
   {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    role: DataTypes.ENUM('MASTER', 'DEVELOPER'),
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.ENUM('MASTER', 'DEVELOPER'),
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'user' }
 );

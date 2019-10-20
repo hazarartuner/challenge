@@ -5,8 +5,16 @@ class Story extends Model {}
 
 Story.init(
   {
-    title: DataTypes.STRING,
-    score: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    finalScore: DataTypes.INTEGER,
+    status: {
+      type: DataTypes.ENUM('ACTIVE', 'VOTED', 'NOT_VOTED'),
+      defaultValue: 'NOT_VOTED',
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'story' }
 );

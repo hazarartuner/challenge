@@ -5,7 +5,15 @@ class Session extends Model {}
 
 Session.init(
   {
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    slug: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'session' }
 );

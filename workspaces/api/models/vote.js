@@ -5,7 +5,10 @@ class Vote extends Model {}
 
 Vote.init(
   {
-    score: DataTypes.INTEGER,
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'vote' }
 );
