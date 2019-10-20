@@ -1,4 +1,4 @@
-const models = require('../models');
+const { User } = require('../models');
 
 module.exports = () => async (req, res, next) => {
   const authorization = req.header('Authorization');
@@ -14,7 +14,7 @@ module.exports = () => async (req, res, next) => {
     return next();
   }
 
-  const user = await models.User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { email } });
 
   if (!user) {
     return next();

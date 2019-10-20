@@ -1,6 +1,6 @@
 const express = require('express');
 const loginValidator = require('../validators/loginValidator');
-const models = require('./../models');
+const { User } = require('./../models');
 
 const router = express.Router();
 
@@ -12,10 +12,10 @@ router.post('/login', async (req, res) => {
   }
 
   try {
-    let user = await models.User.findOne({ where: { email } });
+    let user = await User.findOne({ where: { email } });
 
     if (!user) {
-      user = await models.User.create({
+      user = await User.create({
         email,
         name,
         role,

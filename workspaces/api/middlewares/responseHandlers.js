@@ -35,6 +35,13 @@ const handleForbidden = (req, res) => {
   });
 };
 
+const handleNotFound = (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: 'Not found!',
+  });
+};
+
 const handleSuccess = (req, res, payload) => {
   res.status(200).json({
     status: 200,
@@ -47,6 +54,7 @@ module.exports = (req, res, next) => {
     success: payload => handleSuccess(req, res, payload),
     forbidden: () => handleForbidden(req, res),
     badRequest: details => handleBadRequest(req, res, details),
+    notFound: () => handleNotFound(req, res),
     internalServerError: details => handleInternalServerError(req, res, details),
   };
   next();

@@ -2,7 +2,7 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const sequelize = require('./services/sequelize');
-const models = require('./models');
+const { User } = require('./models');
 
 // eslint-disable-next-line no-console
 console.log('Connecting to the database');
@@ -48,7 +48,7 @@ sequelize
 
     await Promise.all(
       users.reduce((acc, user) => {
-        acc.push(models.User.upsert(user));
+        acc.push(User.upsert(user));
         return acc;
       }, [])
     );
