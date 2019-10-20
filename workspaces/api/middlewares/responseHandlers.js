@@ -1,4 +1,9 @@
 const handleBadRequest = (req, res, details) => {
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.error(details);
+  }
+
   return res.status(400).json({
     status: 400,
     message: 'Bad request',
@@ -9,7 +14,12 @@ const handleBadRequest = (req, res, details) => {
 };
 
 const handleInternalServerError = (req, res, details) => {
-  res.status(500).json({
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.error(details);
+  }
+
+  return res.status(500).json({
     status: 500,
     message: 'Internal server error',
     payload: {

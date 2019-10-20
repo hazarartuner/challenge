@@ -14,6 +14,10 @@ Session.init(
       unique: true,
       allowNull: false,
     },
+    voterCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'session' }
 );

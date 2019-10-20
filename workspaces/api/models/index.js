@@ -6,8 +6,9 @@ const Vote = require('./vote');
 
 Session.belongsToMany(User, { through: UserSession });
 User.belongsToMany(Session, { through: UserSession });
+Session.hasMany(Story);
+Story.belongsTo(Session);
 Story.hasMany(Vote);
-Story.hasOne(Session);
 Vote.belongsTo(Story);
 Vote.belongsTo(User);
 

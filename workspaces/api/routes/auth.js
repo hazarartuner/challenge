@@ -1,5 +1,5 @@
 const express = require('express');
-const userValidator = require('./../validators/userValidator');
+const loginValidator = require('../validators/loginValidator');
 const models = require('./../models');
 
 const router = express.Router();
@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   const { email, name, role } = req.body;
 
-  if (!userValidator(req.body)) {
-    return res.responseHandlers.badRequest(userValidator.errors);
+  if (!loginValidator(req.body)) {
+    return res.responseHandlers.badRequest(loginValidator.errors);
   }
 
   try {
