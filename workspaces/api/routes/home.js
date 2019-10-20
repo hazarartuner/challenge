@@ -1,13 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const session = require('../models/session');
+const models = require('../models');
 
 router.get('/', (req, res) => {
-  return session
-    .findAll({
-      attributes: ['id', 'title'],
-    })
+  return models.Session.findAll({
+    attributes: ['id', 'title'],
+  })
     .then(sessions => {
       res.json({
         status: 200,
