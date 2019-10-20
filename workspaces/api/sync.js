@@ -1,28 +1,22 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+// Require it to define the models schemas
+require('./models');
 const sequelize = require('./services/sequelize');
-const routes = require('./routes');
-const responseHandlers = require('./middlewares/responseHandlers');
 
 // eslint-disable-next-line no-console
 console.log('Connecting to the database');
 
 sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     // eslint-disable-next-line no-console
     console.log('Connection succeed.');
 
-    const app = express();
-    app.use(bodyParser.json());
-    app.use(cors());
-    app.use(responseHandlers);
-    app.use('/', routes());
-    app.listen(process.env.API_PORT || 9000);
+    sequelize.sync({ force: ['--force', '-f'].indexOf(process.argv[2]) >= 0 }).finally(() => {
+      process.exit();
+    });
   })
   .catch(err => {
     // eslint-disable-next-line no-console
