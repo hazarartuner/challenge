@@ -11,4 +11,5 @@ module.exports = ajv.compile({
     voterCount: { type: 'integer' },
     stories: { type: 'array' },
   },
+  required: ['title', 'slug', 'voterCount', 'stories'],
 });

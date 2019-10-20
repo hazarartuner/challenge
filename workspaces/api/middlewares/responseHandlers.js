@@ -42,6 +42,14 @@ const handleNotFound = (req, res) => {
   });
 };
 
+const handleConflict = (req, res, details) => {
+  res.status(409).json({
+    status: 409,
+    message: 'Conflict, You may be trying to create existing content!',
+    payload: { details },
+  });
+};
+
 const handleSuccess = (req, res, payload) => {
   res.status(200).json({
     status: 200,
@@ -55,6 +63,7 @@ module.exports = (req, res, next) => {
     forbidden: () => handleForbidden(req, res),
     badRequest: details => handleBadRequest(req, res, details),
     notFound: () => handleNotFound(req, res),
+    conflict: details => handleConflict(req, res, details),
     internalServerError: details => handleInternalServerError(req, res, details),
   };
   next();

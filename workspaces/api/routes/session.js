@@ -17,6 +17,14 @@ router.post('/', checkPermission(['MASTER']), async (req, res) => {
   }
 
   try {
+    const existingSession = await Session.findOne({ where: { slug: sessionObj.slug } });
+
+    if (existingSession) {
+      return res.responseHandlers.conflict(
+        `There is already existing session with named "${sessionObj.title}"`
+      );
+    }
+
     const session = await Session.create(
       {
         ...sessionObj,
@@ -53,15 +61,18 @@ router.get('/list', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) =
   }
 });
 
-router.get('/:id', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
-  if (!req.params.id) {
+router.get('/:slug', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
+  if (!req.params.slug) {
     return res.responseHandlers.badRequest(createSessionValidator.errors);
   }
 
   try {
-    const session = await Session.findByPk(req.params.id, {
-      include: [Story],
-    });
+    const session = await Session.findOne(
+      { where: { slug: req.params.slug } },
+      {
+        include: [Story],
+      }
+    );
 
     if (!session) {
       return res.responseHandlers.notFound();
