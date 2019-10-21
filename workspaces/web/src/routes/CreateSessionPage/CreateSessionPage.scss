@@ -1,0 +1,28 @@
+.create-session__page {
+  &__grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-gap: 5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'session-name voter-count'
+      'stories stories';
+
+    .session-name {
+      grid-area: session-name;
+    }
+
+    .voter-count {
+      grid-area: voter-count;
+    }
+
+    .stories {
+      grid-area: stories;
+    }
+  }
+
+  .button {
+    float: right;
+  }
+}

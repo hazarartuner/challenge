@@ -60,9 +60,9 @@ const SessionsPage = () => {
       </table>
 
       {account && account.role === 'MASTER' && (
-        <button className="button create" type="button">
+        <Link to={generatePath('createSession')} className="button create">
           New Session
-        </button>
+        </Link>
       )}
     </div>
   );

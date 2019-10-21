@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginPage from './LoginPage';
 import SessionsPage from './SessionsPage';
+import CreateSessionPage from './CreateSessionPage';
 
 export default {
   login: {
@@ -11,6 +12,11 @@ export default {
   sessions: {
     path: '/sessions',
     component: SessionsPage,
+    exact: true,
+  },
+  createSession: {
+    path: '/poker-planning-add-story-list',
+    component: CreateSessionPage,
     exact: true,
   },
   planningForDeveloperPage: {
