@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import { AUTH_LOGIN_COMPLETE } from './types';
 
 const initialState = fromJS({
-  user: null,
+  account: null,
 });
 
 export default (state = initialState, action) => {
@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case AUTH_LOGIN_COMPLETE: {
-      return state.set('user', fromJS(payload.user));
+      return state.set('account', fromJS(payload.user));
     }
 
     default: {

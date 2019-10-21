@@ -27,7 +27,7 @@ export class Api {
     };
 
     if (this.token) {
-      headers['X-Authorization'] = `Basic ${this.token}`;
+      headers.Authorization = `Basic ${this.token}`;
     }
 
     return headers;
@@ -126,6 +126,10 @@ export class Api {
 
       return Promise.reject(new Error('Token not given'));
     });
+  }
+
+  getUserDetails() {
+    return this.fetch(`${this.apiUrl}/auth/user-details`);
   }
 }
 
