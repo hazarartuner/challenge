@@ -9,14 +9,14 @@ router.post('/login', async (req, res) => {
   const { email } = req.body;
 
   if (!loginValidator(req.body)) {
-    return res.badRequest(loginValidator.errors);
+    return res.badRequest({ details: loginValidator.errors });
   }
 
   try {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.notFound('User not found');
+      return res.notFound({ message: 'User not found' });
     }
 
     return res.success({
@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
       token: Buffer.from(email).toString('base64'),
     });
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 
@@ -32,14 +32,14 @@ router.post('/register', async (req, res) => {
   const { email, name, role } = req.body;
 
   if (!registerValidator(req.body)) {
-    return res.badRequest(registerValidator.errors);
+    return res.badRequest({ details: registerValidator.errors });
   }
 
   try {
     let user = await User.findOne({ where: { email } });
 
     if (user) {
-      return res.conflict('This email is used by another user');
+      return res.conflict({ message: 'This email is used by another user' });
     }
 
     user = await User.create({
@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
       token: Buffer.from(email).toString('base64'),
     });
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 

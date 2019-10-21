@@ -1,4 +1,4 @@
-const handleBadRequest = (req, res, details) => {
+const handleBadRequest = (req, res, message, details) => {
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line no-console
     console.error(details);
@@ -6,14 +6,13 @@ const handleBadRequest = (req, res, details) => {
 
   return res.status(400).json({
     status: 400,
-    message: 'Bad request',
-    payload: {
-      details: process.env.NODE_ENV !== 'production' ? details : null,
-    },
+    title: 'Bad request',
+    message,
+    details: process.env.NODE_ENV !== 'production' ? details : null,
   });
 };
 
-const handleInternalServerError = (req, res, details) => {
+const handleInternalServerError = (req, res, message, details) => {
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line no-console
     console.error(details);
@@ -21,38 +20,36 @@ const handleInternalServerError = (req, res, details) => {
 
   return res.status(500).json({
     status: 500,
-    message: 'Internal server error',
-    payload: {
-      details: process.env.NODE_ENV !== 'production' ? details : null,
-    },
+    title: 'Internal server error',
+    message,
+    details: process.env.NODE_ENV !== 'production' ? details : null,
   });
 };
 
-const handleForbidden = (req, res, details) => {
+const handleForbidden = (req, res, message, details) => {
   res.status(403).json({
     status: 403,
-    message: "Forbidden, you don't have permission to access this content",
-    payload: {
-      details,
-    },
+    title: 'Forbidden',
+    message,
+    details: process.env.NODE_ENV !== 'production' ? details : null,
   });
 };
 
-const handleNotFound = (req, res, details) => {
+const handleNotFound = (req, res, message, details) => {
   res.status(404).json({
     status: 404,
-    message: 'Not found!',
-    payload: {
-      details,
-    },
+    title: 'Not found!',
+    message,
+    details: process.env.NODE_ENV !== 'production' ? details : null,
   });
 };
 
-const handleConflict = (req, res, details) => {
+const handleConflict = (req, res, message, details) => {
   res.status(409).json({
     status: 409,
-    message: 'Conflict, You may be trying to create existing content!',
-    payload: { details },
+    title: 'Conflict',
+    message,
+    details: process.env.NODE_ENV !== 'production' ? details : null,
   });
 };
 
@@ -65,11 +62,16 @@ const handleSuccess = (req, res, payload) => {
 
 module.exports = (req, res, next) => {
   res.success = payload => handleSuccess(req, res, payload);
-  res.forbidden = details => handleForbidden(req, res, details);
-  res.badRequest = details => handleBadRequest(req, res, details);
-  res.notFound = details => handleNotFound(req, res, details);
-  res.conflict = details => handleConflict(req, res, details);
-  res.internalServerError = details => handleInternalServerError(req, res, details);
+  res.forbidden = ({ message = null, details = null } = {}) =>
+    handleForbidden(req, res, message, details);
+  res.badRequest = ({ message = null, details = null } = {}) =>
+    handleBadRequest(req, res, message, details);
+  res.notFound = ({ message = null, details = null } = {}) =>
+    handleNotFound(req, res, message, details);
+  res.conflict = ({ message = null, details = null } = {}) =>
+    handleConflict(req, res, message, details);
+  res.internalServerError = ({ message = null, details = null } = {}) =>
+    handleInternalServerError(req, res, message, details);
 
   next();
 };

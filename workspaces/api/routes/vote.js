@@ -12,18 +12,18 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
   };
 
   if (!createVoteValidator(voteObj)) {
-    return res.badRequest(createVoteValidator.errors);
+    return res.badRequest({ details: createVoteValidator.errors });
   }
 
   try {
     const story = await Story.findByPk(voteObj.storyId);
 
     if (!story) {
-      return res.notFound('Story not found!');
+      return res.notFound({ message: 'Story not found!' });
     }
 
     if (story.status === 'VOTED') {
-      return res.forbidden('Story has been completed!');
+      return res.forbidden({ message: 'Story has been completed!' });
     }
 
     const existingVote = await Vote.findOne({
@@ -40,7 +40,7 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
 
     return res.success(vote);
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 
@@ -53,13 +53,9 @@ router.get('/list-by-story/:story', checkPermission(['MASTER', 'DEVELOPER']), as
       include: [User],
     });
 
-    if (!votes) {
-      return res.notFound();
-    }
-
     return res.success(votes);
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 

@@ -12,23 +12,23 @@ router.post('/complete/:id', checkPermission(['MASTER']), async (req, res) => {
   };
 
   if (!completeStoryValidator(storyObj)) {
-    return res.badRequest(completeStoryValidator.errors);
+    return res.badRequest({ details: completeStoryValidator.errors });
   }
 
   try {
     const story = await Story.findByPk(req.params.id);
 
     if (!story) {
-      return res.notFound('Story not found!');
+      return res.notFound({ message: 'Story not found!' });
     }
 
     if (story.status === 'VOTED') {
-      return res.forbidden('This story has already been completed');
+      return res.forbidden({ message: 'This story has already been completed' });
     }
 
     return res.success(await story.update(storyObj));
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 
@@ -37,11 +37,11 @@ router.post('/set-active/:id', checkPermission(['MASTER']), async (req, res) => 
     const story = await Story.findByPk(req.params.id);
 
     if (!story) {
-      return res.notFound('Story not found!');
+      return res.notFound({ message: 'Story not found!' });
     }
 
     if (story.status === 'VOTED') {
-      return res.forbidden('This story has already been completed');
+      return res.forbidden({ message: 'This story has already been completed' });
     }
 
     // Set sibling stories status as NOT_VOTED
@@ -55,7 +55,7 @@ router.post('/set-active/:id', checkPermission(['MASTER']), async (req, res) => 
 
     return res.success();
   } catch (error) {
-    return res.internalServerError(error);
+    return res.internalServerError({ details: error });
   }
 });
 
