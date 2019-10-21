@@ -1,24 +1,26 @@
 const express = require('express');
-const home = require('./home');
 const auth = require('./auth');
 const session = require('./session');
 const vote = require('./vote');
+const story = require('./story');
 
 module.exports = () => {
   const router = express.Router();
 
-  router.get('/', home);
+  router.get('/', (req, res) => {
+    res.json({
+      status: 200,
+      payload: {
+        message: 'All is Well!',
+      },
+    });
+  });
   router.use('/auth', auth);
   router.use('/session', session);
   router.use('/vote', vote);
+  router.use('/story', story);
   router.use('*', (req, res) => {
-    res.status(404).json({
-      status: 404,
-      payload: {
-        message: 'Not Found!',
-        url: req.url,
-      },
-    });
+    return res.responseHandlers.notFound();
   });
 
   return router;

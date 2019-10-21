@@ -16,6 +16,16 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
   }
 
   try {
+    const story = await Story.findByPk(voteObj.storyId);
+
+    if (!story) {
+      return res.responseHandlers.notFound('Story not found!');
+    }
+
+    if (story.status === 'VOTED') {
+      return res.responseHandlers.forbidden('Story has been completed!');
+    }
+
     const existingVote = await Vote.findOne({
       where: { userId: voteObj.userId, storyId: voteObj.storyId },
     });
@@ -24,10 +34,6 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
       const vote = await existingVote.update(voteObj);
 
       return res.responseHandlers.success(vote);
-    }
-
-    if (!(await Story.findByPk(voteObj.storyId))) {
-      return res.responseHandlers.notFound('Story not found!');
     }
 
     const vote = await Vote.create(voteObj);
