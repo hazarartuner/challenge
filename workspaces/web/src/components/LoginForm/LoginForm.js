@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import NotFoundError from 'errors/NotFoundError';
 import { login, register } from 'redux/ducks/auth/actions';
 import useForm from 'react-hook-form';
-import TextInput from 'components/TextInput';
 import { emailRegex } from 'helpers/regexs';
+import generatePath from 'helpers/generatePath';
+import TextInput from 'components/TextInput';
 import DropDown from 'components/DropDown';
 import './LoginForm.scss';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { register: registerForm, handleSubmit, errors } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [showRegisterFields, setShowRegisterFields] = useState(false);
@@ -18,10 +21,8 @@ const LoginForm = () => {
     setIsLoading(true);
 
     (showRegisterFields ? dispatch(register({ name, email, role })) : dispatch(login(email)))
-      .then(response => {
-        // @todo: redirect logged in user
-        // eslint-disable-next-line no-console
-        console.log({ response });
+      .then(() => {
+        history.push(generatePath('sessions'));
       })
       .catch(error => {
         if (error instanceof NotFoundError) {
@@ -77,7 +78,7 @@ const LoginForm = () => {
           </DropDown>
         )}
 
-        <button type="submit" disabled={isLoading}>
+        <button className="button" type="submit" disabled={isLoading}>
           {isLoading && 'Loading...'}
           {!isLoading && (showRegisterFields ? 'Register' : 'Login')}
         </button>

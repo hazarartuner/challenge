@@ -1,10 +1,16 @@
 import React from 'react';
 import LoginPage from './LoginPage';
+import SessionsPage from './SessionsPage';
 
 export default {
-  loginPage: {
+  login: {
     path: '/',
     component: LoginPage,
+    exact: true,
+  },
+  sessions: {
+    path: '/sessions',
+    component: SessionsPage,
     exact: true,
   },
   http404: {

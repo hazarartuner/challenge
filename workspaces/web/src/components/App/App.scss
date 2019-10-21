@@ -23,7 +23,12 @@ body {
   }
 }
 
-button {
+h1 {
+  margin: 3rem 0 0 0;
+  font-size: 2.8rem;
+}
+
+.button {
   min-width: 10rem;
   height: 4rem;
   border: 0;
@@ -39,9 +44,57 @@ button {
   margin-top: 2rem;
   transition: background-color 0.1s;
 
-  &:disabled {
-    background: #aaa;
+  &.secondary {
+    background: #17a2b8;
   }
+
+  &.create {
+    background-image: url('../../assets/images/plus.svg');
+    background-repeat: no-repeat;
+    background-position: 1.2rem center;
+    background-size: 1.3rem;
+    padding-left: 3.2rem;
+  }
+}
+
+table {
+  width: 100%;
+  background: #fff;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  margin: 2rem 0 0 0;
+  color: $gray-text;
+  text-shadow: none;
+  text-align: left;
+  border-collapse: collapse;
+
+  tr {
+    height: 4rem;
+
+    &:nth-child(even) {
+      background: #eee;
+    }
+
+    td,
+    th {
+      height: 4rem;
+      padding: 1rem;
+
+      &:nth-child(even) {
+        border-left: solid 0.1rem #ddd;
+      }
+
+      .button {
+        margin-top: 0;
+        height: 3.4rem;
+        float: right;
+      }
+    }
+  }
+}
+
+.button:disabled {
+  background: #aaa;
 }
 
 .app__component {
