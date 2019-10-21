@@ -39,3 +39,5 @@ const createAction = (name, method, entitySchema) => (...args) => dispatch => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const listSessions = createAction('LIST_SESSIONS', api.listSessions, [sessionSchema]);
+
+export const createSession = createAction('CREATE_SESSION', api.createSession, sessionSchema);

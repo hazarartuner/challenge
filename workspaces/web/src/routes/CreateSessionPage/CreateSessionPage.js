@@ -1,15 +1,38 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useForm from 'react-hook-form';
 import TextInput from 'components/TextInput';
 import TextArea from 'components/TextArea';
+import { useHistory } from 'react-router';
+import { createSession } from 'redux/ducks/entities/actions';
+import generatePath from 'helpers/generatePath';
 import './CreateSessionPage.scss';
 
 const CreateSessionPage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = () => {
+  const onSubmit = ({ title, voterCount, stories }) => {
     setIsLoading(true);
+    dispatch(
+      createSession({
+        title,
+        // eslint-disable-next-line radix
+        voterCount: parseInt(voterCount),
+        stories: stories.split('\n'),
+      })
+    )
+      .then(response => {
+        history.push(generatePath('planningForScrumMasterPage', { slug: response.slug }));
+      })
+      .catch(() => {
+        // @todo: Create an app specific notification modal and use it in here
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     setTimeout(() => setIsLoading(false), 2000);
   };

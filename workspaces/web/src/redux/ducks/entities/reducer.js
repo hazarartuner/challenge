@@ -3,6 +3,9 @@ import { ENTITIES_FETCH_COMPLETE } from './types';
 
 const initialState = fromJS({
   sessions: {},
+  stories: {},
+  votes: {},
+  users: {},
 });
 
 export default (state = initialState, action) => {

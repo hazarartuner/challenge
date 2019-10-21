@@ -135,6 +135,17 @@ export class Api {
   listSessions() {
     return this.fetch(`${this.apiUrl}/session/list`);
   }
+
+  createSession({ title, voterCount, stories }) {
+    return this.fetch(`${this.apiUrl}/session`, {
+      method: 'post',
+      body: JSON.stringify({
+        title,
+        voterCount,
+        stories,
+      }),
+    });
+  }
 }
 
 export default new Api();

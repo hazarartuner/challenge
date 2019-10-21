@@ -27,6 +27,8 @@ const LoginForm = () => {
       .catch(error => {
         if (error instanceof NotFoundError) {
           setShowRegisterFields(true);
+        } else {
+          // @todo: Create an app specific notification modal and use it in here
         }
       })
       .finally(() => {
