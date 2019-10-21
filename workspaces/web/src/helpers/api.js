@@ -131,6 +131,10 @@ export class Api {
   getUserDetails() {
     return this.fetch(`${this.apiUrl}/auth/user-details`);
   }
+
+  listSessions() {
+    return this.fetch(`${this.apiUrl}/session/list`);
+  }
 }
 
 export default new Api();

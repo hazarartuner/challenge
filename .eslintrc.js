@@ -16,6 +16,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'consistent-return': 'off',
+    'import/no-cycle': 'off',
   },
   env: {
     browser: true,
