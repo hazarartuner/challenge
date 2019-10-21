@@ -22,7 +22,10 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    return res.responseHandlers.success(user);
+    return res.responseHandlers.success({
+      ...user.toJSON(),
+      token: Buffer.from(email).toString('base64'),
+    });
   } catch (error) {
     return res.responseHandlers.internalServerError(error);
   }
