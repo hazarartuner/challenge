@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables';
 
-.text-input__component {
+.drop-down__component {
   $height: 4rem;
   margin: 1rem 0 0 0;
 
@@ -18,7 +18,7 @@
     color: $primary-text;
   }
 
-  input {
+  select {
     flex-grow: 1;
     height: $height;
     border: 0;
@@ -26,10 +26,17 @@
     box-shadow: inset 0 0 0.2rem #222;
     font-size: $font-size * 0.9;
     padding: 0.1rem 1rem;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(../../assets/images/dropdown-arrow-dark.svg);
+    background-repeat: no-repeat;
+    background-position: right 1.2rem top 56%, 0 0;
+    background-size: auto 0.7rem;
     transition: background-color 0.2s, color 0.2s;
 
     &:disabled {
-      background: #eeeeee;
+      background-color: #eeeeee;
       color: graytext;
     }
 

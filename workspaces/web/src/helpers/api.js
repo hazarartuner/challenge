@@ -111,6 +111,22 @@ export class Api {
       return Promise.reject(new Error('Token not given'));
     });
   }
+
+  register({ name, email, role }) {
+    return this.fetch(`${this.apiUrl}/auth/register`, {
+      method: 'post',
+      body: JSON.stringify({ name, email, role }),
+    }).then(response => {
+      const { token } = response;
+
+      if (token) {
+        this.token = token;
+        return Promise.resolve(response);
+      }
+
+      return Promise.reject(new Error('Token not given'));
+    });
+  }
 }
 
 export default new Api();

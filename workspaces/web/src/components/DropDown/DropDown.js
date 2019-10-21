@@ -1,52 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './TextInput.scss';
+import './DropDown.scss';
 
-const TextInput = React.forwardRef((props, ref) => {
-  const { id, name, type, value, label, error, disabled, onChange } = props;
+const DropDown = React.forwardRef((props, ref) => {
+  const { id, name, children, value, label, error, disabled, onChange } = props;
 
   return (
     <div
-      className={classNames('text-input__component', {
+      className={classNames('drop-down__component', {
         error: !!error,
       })}
     >
-      <div className="text-input__component__row">
+      <div className="drop-down__component__row">
         {label && <label htmlFor={id}>{label}</label>}
-        <input
-          ref={ref}
-          id={id}
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-        />
+        <select ref={ref} id={id} name={name} value={value} onChange={onChange} disabled={disabled}>
+          {children}
+        </select>
       </div>
       {error && <span>{error}</span>}
     </div>
   );
 });
 
-TextInput.propTypes = {
+DropDown.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['text', 'email', 'password']),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
   error: PropTypes.string,
   disabled: PropTypes.bool,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   onChange: PropTypes.func,
 };
 
-TextInput.defaultProps = {
+DropDown.defaultProps = {
   value: undefined,
-  type: 'text',
   label: null,
   error: null,
   disabled: null,
   onChange: null,
 };
 
-export default TextInput;
+export default DropDown;

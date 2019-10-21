@@ -1,8 +1,8 @@
-@import 'assets/scss/variables';
+@import '../../assets/scss/variables';
 
 html {
   background: $background;
-  color: $primaryText;
+  color: $primary-text;
   font-size: 62.5%;
 }
 
@@ -10,11 +10,38 @@ body {
   font-size: $font-size;
   font-family: $font-family;
   margin: 0;
+  text-shadow: $text-shadow;
 }
 
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  min-width: 10rem;
+  height: 4rem;
+  border: 0;
+  text-shadow: $text-shadow;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-size: $font-size * 0.8;
+  background: #6dd400;
+  color: $primary-text;
+  font-weight: bold;
+  margin-top: 2rem;
+  transition: background-color 0.1s;
+
+  &:disabled {
+    background: #aaa;
+  }
 }
 
 .app__component {
