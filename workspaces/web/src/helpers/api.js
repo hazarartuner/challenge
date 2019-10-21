@@ -1,6 +1,7 @@
 import cookies from 'js-cookie';
 import Logger from 'helpers/logger';
 import Ajv from 'ajv';
+import NotFoundError from 'errors/NotFoundError';
 
 const ajv = new Ajv();
 const validator = ajv.compile({
@@ -84,15 +85,21 @@ export class Api {
               });
             }
 
+            if (response.status === 404) {
+              return Promise.reject(
+                new NotFoundError(jsonBody.message || this.defaultErrorMessage)
+              );
+            }
+
             return Promise.reject(new Error(jsonBody.message || this.defaultErrorMessage));
           })
       );
   }
 
-  login({ name, email, role }) {
+  login(email) {
     return this.fetch(`${this.apiUrl}/auth/login`, {
       method: 'post',
-      body: JSON.stringify({ name, email, role }),
+      body: JSON.stringify({ email }),
     }).then(response => {
       const { token } = response;
 

@@ -1,26 +1,32 @@
-import { AUTH_LOGIN_START, AUTH_LOGIN_COMPLETE } from './types';
+import api from 'helpers/api';
+import { AUTH_LOGIN_START, AUTH_LOGIN_COMPLETE, AUTH_LOGIN_ERROR } from './types';
 
 // eslint-disable-next-line import/prefer-default-export
-export const login = (name, email, role) => dispatch => {
+export const login = email => dispatch => {
   dispatch({
     type: AUTH_LOGIN_START,
   });
 
-  return new Promise(resolve => {
-    setTimeout(() => {
+  return api
+    .login(email)
+    .then(user => {
       dispatch({
         type: AUTH_LOGIN_COMPLETE,
         payload: {
-          user: {
-            id: 1,
-            name,
-            email,
-            role,
-          },
+          user,
         },
       });
 
-      resolve();
-    }, 1000);
-  });
+      return Promise.resolve(user);
+    })
+    .catch(error => {
+      dispatch({
+        type: AUTH_LOGIN_ERROR,
+        payload: {
+          error,
+        },
+      });
+
+      return Promise.reject(error);
+    });
 };
