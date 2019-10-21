@@ -57,4 +57,12 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.get('/user-details', async (req, res) => {
+  if (!req.user) {
+    return res.notFound({ message: 'User not found' });
+  }
+
+  return res.success(req.user);
+});
+
 module.exports = router;
