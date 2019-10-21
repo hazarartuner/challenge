@@ -1,9 +1,25 @@
-body {
-  background: #222;
-  color: #fff;
+@import 'assets/scss/variables';
+
+html {
+  background: $background;
+  color: $primaryText;
   font-size: 62.5%;
 }
 
+body {
+  font-size: $font-size;
+  font-family: $font-family;
+  margin: 0;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .app__component {
-  font-size: 1.2rem;
+  width: 100%;
+  max-width: 144rem;
+  display: table;
+  margin: 0 auto;
 }
