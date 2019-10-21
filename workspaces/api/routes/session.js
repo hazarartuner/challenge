@@ -63,12 +63,10 @@ router.get('/list', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) =
 
 router.get('/:slug', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
   try {
-    const session = await Session.findOne(
-      { where: { slug: req.params.slug } },
-      {
-        include: [Story],
-      }
-    );
+    const session = await Session.findOne({
+      where: { slug: req.params.slug },
+      include: [Story],
+    });
 
     if (!session) {
       return res.responseHandlers.notFound();
