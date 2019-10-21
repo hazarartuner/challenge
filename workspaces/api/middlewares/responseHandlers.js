@@ -64,13 +64,12 @@ const handleSuccess = (req, res, payload) => {
 };
 
 module.exports = (req, res, next) => {
-  res.responseHandlers = {
-    success: payload => handleSuccess(req, res, payload),
-    forbidden: details => handleForbidden(req, res, details),
-    badRequest: details => handleBadRequest(req, res, details),
-    notFound: details => handleNotFound(req, res, details),
-    conflict: details => handleConflict(req, res, details),
-    internalServerError: details => handleInternalServerError(req, res, details),
-  };
+  res.success = payload => handleSuccess(req, res, payload);
+  res.forbidden = details => handleForbidden(req, res, details);
+  res.badRequest = details => handleBadRequest(req, res, details);
+  res.notFound = details => handleNotFound(req, res, details);
+  res.conflict = details => handleConflict(req, res, details);
+  res.internalServerError = details => handleInternalServerError(req, res, details);
+
   next();
 };

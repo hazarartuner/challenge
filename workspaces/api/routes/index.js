@@ -20,7 +20,7 @@ module.exports = () => {
   router.use('/vote', vote);
   router.use('/story', story);
   router.use('*', (req, res) => {
-    return res.responseHandlers.notFound();
+    return res.notFound();
   });
 
   return router;

@@ -12,23 +12,23 @@ router.post('/complete/:id', checkPermission(['MASTER']), async (req, res) => {
   };
 
   if (!completeStoryValidator(storyObj)) {
-    return res.responseHandlers.badRequest(completeStoryValidator.errors);
+    return res.badRequest(completeStoryValidator.errors);
   }
 
   try {
     const story = await Story.findByPk(req.params.id);
 
     if (!story) {
-      return res.responseHandlers.notFound('Story not found!');
+      return res.notFound('Story not found!');
     }
 
     if (story.status === 'VOTED') {
-      return res.responseHandlers.forbidden('This story has already been completed');
+      return res.forbidden('This story has already been completed');
     }
 
-    return res.responseHandlers.success(await story.update(storyObj));
+    return res.success(await story.update(storyObj));
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 
@@ -37,11 +37,11 @@ router.post('/set-active/:id', checkPermission(['MASTER']), async (req, res) => 
     const story = await Story.findByPk(req.params.id);
 
     if (!story) {
-      return res.responseHandlers.notFound('Story not found!');
+      return res.notFound('Story not found!');
     }
 
     if (story.status === 'VOTED') {
-      return res.responseHandlers.forbidden('This story has already been completed');
+      return res.forbidden('This story has already been completed');
     }
 
     // Set sibling stories status as NOT_VOTED
@@ -53,9 +53,9 @@ router.post('/set-active/:id', checkPermission(['MASTER']), async (req, res) => 
     // Set current story as ACTIVE
     await Story.update({ status: 'ACTIVE' }, { where: { id: req.params.id } });
 
-    return res.responseHandlers.success();
+    return res.success();
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 

@@ -13,16 +13,14 @@ router.post('/', checkPermission(['MASTER']), async (req, res) => {
   };
 
   if (!createSessionValidator(sessionObj)) {
-    return res.responseHandlers.badRequest(createSessionValidator.errors);
+    return res.badRequest(createSessionValidator.errors);
   }
 
   try {
     const existingSession = await Session.findOne({ where: { slug: sessionObj.slug } });
 
     if (existingSession) {
-      return res.responseHandlers.conflict(
-        `There is already existing session with named "${sessionObj.title}"`
-      );
+      return res.conflict(`There is already existing session with named "${sessionObj.title}"`);
     }
 
     const session = await Session.create(
@@ -41,9 +39,9 @@ router.post('/', checkPermission(['MASTER']), async (req, res) => {
       }
     );
 
-    return res.responseHandlers.success(session);
+    return res.success(session);
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 
@@ -52,12 +50,12 @@ router.get('/list', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) =
     const sessions = await Session.findAll();
 
     if (!sessions) {
-      return res.responseHandlers.notFound();
+      return res.notFound();
     }
 
-    return res.responseHandlers.success(sessions);
+    return res.success(sessions);
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 
@@ -69,12 +67,12 @@ router.get('/:slug', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) 
     });
 
     if (!session) {
-      return res.responseHandlers.notFound();
+      return res.notFound();
     }
 
-    return res.responseHandlers.success(session);
+    return res.success(session);
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 

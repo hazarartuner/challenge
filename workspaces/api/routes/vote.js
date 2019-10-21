@@ -12,18 +12,18 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
   };
 
   if (!createVoteValidator(voteObj)) {
-    return res.responseHandlers.badRequest(createVoteValidator.errors);
+    return res.badRequest(createVoteValidator.errors);
   }
 
   try {
     const story = await Story.findByPk(voteObj.storyId);
 
     if (!story) {
-      return res.responseHandlers.notFound('Story not found!');
+      return res.notFound('Story not found!');
     }
 
     if (story.status === 'VOTED') {
-      return res.responseHandlers.forbidden('Story has been completed!');
+      return res.forbidden('Story has been completed!');
     }
 
     const existingVote = await Vote.findOne({
@@ -33,14 +33,14 @@ router.post('/', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
     if (existingVote) {
       const vote = await existingVote.update(voteObj);
 
-      return res.responseHandlers.success(vote);
+      return res.success(vote);
     }
 
     const vote = await Vote.create(voteObj);
 
-    return res.responseHandlers.success(vote);
+    return res.success(vote);
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 
@@ -54,12 +54,12 @@ router.get('/list-by-story/:story', checkPermission(['MASTER', 'DEVELOPER']), as
     });
 
     if (!votes) {
-      return res.responseHandlers.notFound();
+      return res.notFound();
     }
 
-    return res.responseHandlers.success(votes);
+    return res.success(votes);
   } catch (error) {
-    return res.responseHandlers.internalServerError(error);
+    return res.internalServerError(error);
   }
 });
 
