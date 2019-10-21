@@ -1,7 +1,3 @@
-const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
-require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
-
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const common = require('./webpack.common');

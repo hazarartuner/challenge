@@ -1,6 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
+
+const envVariables = Object.keys(process.env).reduce((acc, curr) => {
+  acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
+  return acc;
+}, {});
 
 module.exports = {
   entry: './src/index.js',
@@ -40,6 +48,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new webpack.DefinePlugin(envVariables),
   ],
   resolve: {
     modules: ['./src', 'node_modules'],
