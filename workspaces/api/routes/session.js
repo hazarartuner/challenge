@@ -62,10 +62,6 @@ router.get('/list', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) =
 });
 
 router.get('/:slug', checkPermission(['MASTER', 'DEVELOPER']), async (req, res) => {
-  if (!req.params.slug) {
-    return res.responseHandlers.badRequest(createSessionValidator.errors);
-  }
-
   try {
     const session = await Session.findOne(
       { where: { slug: req.params.slug } },

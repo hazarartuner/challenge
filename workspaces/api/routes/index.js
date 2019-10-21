@@ -2,6 +2,7 @@ const express = require('express');
 const home = require('./home');
 const auth = require('./auth');
 const session = require('./session');
+const vote = require('./vote');
 
 module.exports = () => {
   const router = express.Router();
@@ -9,6 +10,7 @@ module.exports = () => {
   router.get('/', home);
   router.use('/auth', auth);
   router.use('/session', session);
+  router.use('/vote', vote);
   router.use('*', (req, res) => {
     res.status(404).json({
       status: 404,
