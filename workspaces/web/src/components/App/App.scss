@@ -72,6 +72,10 @@ table {
   text-align: left;
   border-collapse: collapse;
 
+  thead {
+    background: #eee;
+  }
+
   tr {
     height: 4rem;
 
@@ -84,7 +88,8 @@ table {
       height: 4rem;
       padding: 1rem;
 
-      &:nth-child(even) {
+      + td,
+      + th {
         border-left: solid 0.1rem #ddd;
       }
 
@@ -92,6 +97,13 @@ table {
         margin-top: 0;
         height: 3.4rem;
         float: right;
+      }
+    }
+
+    &.no-item {
+      th,
+      td {
+        color: $secondary-text;
       }
     }
   }

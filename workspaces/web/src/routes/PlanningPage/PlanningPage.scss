@@ -1,0 +1,42 @@
+@import '../../assets/scss/variables';
+
+.planning__page {
+  display: grid;
+  grid-gap: 3rem;
+
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    'logo share'
+    'story-list score-cards';
+
+  &.scrum-master {
+    grid-template-columns: 2.5fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'logo share share'
+      'story-list score-cards scrum-master-panel';
+  }
+
+  .logo {
+    width: 15rem;
+    grid-area: logo;
+  }
+
+  .share {
+    text-align: right;
+    grid-area: share;
+  }
+
+  .story-list {
+    grid-area: story-list;
+  }
+
+  .score-cards {
+    grid-area: score-cards;
+  }
+
+  .scrum-master-panel {
+    grid-area: scrum-master-panel;
+  }
+}

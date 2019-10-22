@@ -1,0 +1,43 @@
+@import '../../assets/scss/variables';
+
+.score-cards__component {
+  max-width: 40rem;
+
+  .cards-wrapper {
+    background: #fff;
+    color: $gray-text;
+    box-shadow: $box-shadow;
+    padding: 3rem;
+    border-radius: $border-radius;
+
+    .cards-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 2rem;
+
+      span {
+        display: flex;
+        height: 5rem;
+        background: #eeeeee;
+        align-items: center;
+        justify-content: center;
+        border: solid 0.3rem #aaa;
+        border-radius: $border-radius;
+        font-size: 1.8rem;
+        transition: background-color 0.2s, color 0.2s;
+        cursor: pointer;
+
+        &.active {
+          background: $green;
+          color: #fff;
+        }
+      }
+    }
+
+    .voted-text {
+      text-align: center;
+      margin: 3rem 0 0 0;
+      height: 2rem;
+    }
+  }
+}

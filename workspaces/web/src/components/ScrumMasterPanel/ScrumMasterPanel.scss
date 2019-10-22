@@ -1,0 +1,11 @@
+@import '../../assets/scss/variables';
+
+.scrum-master-panel__component {
+  .contents-wrapper {
+    background: #fff;
+    color: $gray-text;
+    box-shadow: $box-shadow;
+    padding: 3rem;
+    border-radius: $border-radius;
+  }
+}

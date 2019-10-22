@@ -2,6 +2,7 @@ import React from 'react';
 import LoginPage from './LoginPage';
 import SessionsPage from './SessionsPage';
 import CreateSessionPage from './CreateSessionPage';
+import PlanningPage from './PlanningPage';
 
 export default {
   login: {
@@ -21,11 +22,11 @@ export default {
   },
   planningForDeveloperPage: {
     path: '/poker-planning-view-as-developer/:slug',
-    component: () => 'Session For Developer Page',
+    component: PlanningPage,
   },
   planningForScrumMasterPage: {
     path: '/poker-planning-view-as-scrum-master/:slug',
-    component: () => 'Session For Scrum Master Page',
+    component: PlanningPage,
   },
   http404: {
     path: '*',
